@@ -111,8 +111,24 @@ export default function PortfolioPage() {
         y: -(e.clientY / window.innerHeight) * 2 + 1
       };
     };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        mousePos.current = {
+          x: (touch.clientX / window.innerWidth) * 2 - 1,
+          y: -(touch.clientY / window.innerHeight) * 2 + 1
+        };
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
   }, []);
 
   useEffect(() => {
@@ -270,18 +286,18 @@ export default function PortfolioPage() {
       </header>
 
       {/* HERO SECTION */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center z-10 px-6 text-center">
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center z-10 px-6 text-center pt-20 pb-10">
         <div className="max-w-4xl relative">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/5 backdrop-blur-3xl text-[10px] font-bold tracking-[0.3em] text-blue-400 mb-12 uppercase">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/5 backdrop-blur-3xl text-[10px] font-bold tracking-[0.3em] text-blue-400 mb-8 md:mb-12 uppercase">
             <ShieldCheck className="w-4 h-4" /> <span>ALX Software Engineering Alumni</span>
           </div>
-          <h1 className="text-7xl md:text-[10rem] font-black tracking-tighter mb-10 leading-[0.8] drop-shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+          <h1 className="text-5xl sm:text-7xl md:text-[10rem] font-black tracking-tighter mb-8 md:mb-10 leading-[0.9] md:leading-[0.8] drop-shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
             Software <br /> Architect.
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 font-light mb-16 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-            From the grit of <span className="text-white font-medium uppercase tracking-widest text-lg">C Systems</span> to the innovation of <span className="text-white font-medium uppercase tracking-widest text-lg">Spatial Products</span>.
+          <p className="text-base sm:text-xl md:text-2xl text-gray-400 font-light mb-12 md:mb-16 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+            From the grit of <span className="text-white font-medium uppercase tracking-widest text-sm md:text-lg">C Systems</span> to the innovation of <span className="text-white font-medium uppercase tracking-widest text-sm md:text-lg">Spatial Products</span>.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6 items-center">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 items-center w-full">
             <button onClick={() => scrollTo('curriculum')} className="w-full sm:w-auto bg-white text-black px-12 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-2xl">
               Foundation
             </button>
@@ -290,18 +306,18 @@ export default function PortfolioPage() {
             </button>
           </div>
         </div>
-        <div className="absolute bottom-12 animate-bounce opacity-20 cursor-pointer hover:opacity-100 transition-opacity" onClick={() => scrollTo('curriculum')}>
+        <div className="absolute bottom-8 md:bottom-12 animate-bounce opacity-20 cursor-pointer hover:opacity-100 transition-opacity" onClick={() => scrollTo('curriculum')}>
           <ChevronDown className="w-8 h-8" />
         </div>
       </section>
 
       {/* CURRICULUM SECTION (FOUNDATION) */}
-      <section id="curriculum" className="relative min-h-screen z-10 flex flex-col justify-center py-40 px-6 md:px-24">
+      <section id="curriculum" className="relative min-h-screen z-10 flex flex-col justify-center py-20 md:py-40 px-6 md:px-24">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="mb-24">
+          <div className="mb-16 md:mb-24">
             <span className="text-purple-500 font-black text-[10px] uppercase tracking-[0.5em] mb-6 block">Curriculum Vitae</span>
-            <h2 className="text-6xl md:text-7xl font-black tracking-tight mb-8">ALX Mastery.</h2>
-            <p className="text-gray-500 text-xl font-light max-w-2xl leading-relaxed">The foundational grit. A journey from manually managing memory in C to architecting distributed cloud systems.</p>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-8">ALX Mastery.</h2>
+            <p className="text-gray-500 text-lg md:text-xl font-light max-w-2xl leading-relaxed">The foundational grit. A journey from manually managing memory in C to architecting distributed cloud systems.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -347,13 +363,13 @@ export default function PortfolioPage() {
       </section>
 
       {/* SIDE PROJECTS SECTION (CREATIVITY) */}
-      <section id="side-projects" className="relative min-h-screen z-10 flex flex-col justify-center py-40 px-6 md:px-24 bg-amber-500/[0.005]">
+      <section id="side-projects" className="relative min-h-screen z-10 flex flex-col justify-center py-20 md:py-40 px-6 md:px-24 bg-amber-500/[0.005]">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-10">
+          <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-10">
             <div className="max-w-2xl">
               <span className="text-amber-500 font-black text-[10px] uppercase tracking-[0.5em] mb-6 block">Independent Works</span>
-              <h2 className="text-6xl md:text-7xl font-black tracking-tight mb-8">Personal Lab.</h2>
-              <p className="text-gray-500 text-xl font-light leading-relaxed">Where curiosity meets production. Exploring Spatial UI, Real-time data, and SaaS architecture.</p>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight mb-8">Personal Lab.</h2>
+              <p className="text-gray-500 text-lg md:text-xl font-light leading-relaxed">Where curiosity meets production. Exploring Spatial UI, Real-time data, and SaaS architecture.</p>
             </div>
           </div>
 
@@ -396,22 +412,22 @@ export default function PortfolioPage() {
       </section>
 
       {/* ABOUT SECTION */}
-      <section id="about" className="relative min-h-screen z-10 flex items-center py-40 px-6 md:px-24">
+      <section id="about" className="relative min-h-screen z-10 flex items-center py-20 md:py-40 px-6 md:px-24">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="bg-[#080808]/80 backdrop-blur-3xl border border-white/5 rounded-[4rem] p-12 md:p-24 shadow-[0_32px_64px_rgba(0,0,0,0.6)] relative overflow-hidden">
-            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-20 relative z-10">
+          <div className="bg-[#080808]/80 backdrop-blur-3xl border border-white/5 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 shadow-[0_32px_64px_rgba(0,0,0,0.6)] relative overflow-hidden">
+            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20 relative z-10">
               <div className="flex-shrink-0 text-center lg:text-left">
-                <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-black border-4 border-white/10 flex items-center justify-center text-7xl font-black shadow-2xl mb-12">
+                <div className="relative w-32 h-32 md:w-64 md:h-64 rounded-full bg-black border-4 border-white/10 flex items-center justify-center text-5xl md:text-7xl font-black shadow-2xl mb-8 md:mb-12 mx-auto lg:mx-0">
                   AM
                 </div>
-                <h2 className="text-5xl md:text-7xl font-black tracking-tighter mb-4">Alvin Mike</h2>
+                <h2 className="text-4xl md:text-7xl font-black tracking-tighter mb-4">Alvin Mike</h2>
                 <div className="px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 inline-block">
                   <span className="text-blue-400 font-black text-xs tracking-[0.4em] uppercase">Engineer & Maker</span>
                 </div>
               </div>
 
-              <div className="flex-grow space-y-16">
-                <p className="text-3xl md:text-5xl text-gray-200 font-light leading-[1.2] drop-shadow-md">
+              <div className="flex-grow space-y-10 md:space-y-16">
+                <p className="text-2xl md:text-5xl text-gray-200 font-light leading-[1.2] drop-shadow-md text-center lg:text-left">
                   A developer who bridges the gap between <strong className="text-white font-black">low-level grit</strong> and <strong className="text-white font-black">spatial innovation.</strong>
                 </p>
 
