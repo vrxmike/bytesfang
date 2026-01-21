@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import Scene from '@/components/canvas/Scene';
+import OptimizedScene from '@/components/canvas/OptimizedScene';
 import Navigation from '@/components/ui/Navigation';
 import CommandPalette from '@/components/ui/CommandPalette';
 import Hero from '@/components/sections/Hero';
@@ -65,8 +65,8 @@ export default function Home() {
   return (
     <main className="relative w-full h-screen overflow-hidden bg-slate-50 dark:bg-slate-950 selection:bg-blue-500 selection:text-white">
 
-      {/* 3D Background */}
-      <Scene activeSection={activeSection} />
+      {/* 3D Background - Optimized */}
+      <OptimizedScene activeSection={activeSection} />
 
       {/* Navigation */}
       <Navigation
@@ -146,7 +146,7 @@ export default function Home() {
       <footer className="fixed bottom-6 left-6 right-6 flex justify-between items-end pointer-events-none z-30 text-[10px] text-slate-400 font-mono mix-blend-difference">
          <div className="flex gap-4">
             <div>FRAMEWORK: NEXT.JS 15</div>
-            <div>RENDER: R3F / WEBGL</div>
+            <div>RENDER: THREE.JS / WEBGL</div>
          </div>
          <div>© 2026 NEXUS INDUSTRIES</div>
       </footer>
