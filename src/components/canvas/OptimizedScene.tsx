@@ -243,5 +243,5 @@ export default function OptimizedScene({ activeSection }: OptimizedSceneProps) {
 
   }, []);
 
-  return <div ref={mountRef} className="fixed inset-0 z-0 pointer-events-none" />;
+  return <div ref={mountRef} className="fixed inset-0 z-0 pointer-events-none touch-action-none" />;
 }
