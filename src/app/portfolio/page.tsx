@@ -265,7 +265,7 @@ export default function PortfolioPage() {
     <div className="relative w-full min-h-screen bg-[#030303] text-white selection:bg-blue-500/30 font-sans overflow-x-hidden">
 
       {/* 3D ENGINE */}
-      <div ref={mountRef} className="fixed inset-0 z-0 opacity-60 pointer-events-none" />
+      <div ref={mountRef} className="fixed inset-0 z-0 opacity-60 pointer-events-none touch-action-none" />
       <div className="fixed inset-0 z-[5] pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(3,3,3,0.6)_60%,rgba(3,3,3,1)_100%)]" />
 
       {/* NAVIGATION */}
@@ -286,7 +286,7 @@ export default function PortfolioPage() {
       </header>
 
       {/* HERO SECTION */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center z-10 px-6 text-center pt-20 pb-10">
+      <section id="home" className="relative min-h-screen min-h-[100dvh] flex flex-col items-center justify-center z-10 px-6 text-center pt-20 pb-10">
         <div className="max-w-4xl relative">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-500/20 bg-blue-500/5 backdrop-blur-3xl text-[10px] font-bold tracking-[0.3em] text-blue-400 mb-8 md:mb-12 uppercase">
             <ShieldCheck className="w-4 h-4" /> <span>ALX Software Engineering Alumni</span>
@@ -312,7 +312,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* CURRICULUM SECTION (FOUNDATION) */}
-      <section id="curriculum" className="relative min-h-screen z-10 flex flex-col justify-center py-20 md:py-40 px-6 md:px-24">
+      <section id="curriculum" className="relative min-h-screen min-h-[100dvh] z-10 flex flex-col justify-center py-20 md:py-40 px-6 md:px-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="mb-16 md:mb-24">
             <span className="text-purple-500 font-black text-[10px] uppercase tracking-[0.5em] mb-6 block">Curriculum Vitae</span>
@@ -363,7 +363,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* SIDE PROJECTS SECTION (CREATIVITY) */}
-      <section id="side-projects" className="relative min-h-screen z-10 flex flex-col justify-center py-20 md:py-40 px-6 md:px-24 bg-amber-500/[0.005]">
+      <section id="side-projects" className="relative min-h-screen min-h-[100dvh] z-10 flex flex-col justify-center py-20 md:py-40 px-6 md:px-24 bg-amber-500/[0.005]">
         <div className="max-w-7xl mx-auto w-full">
           <div className="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-10">
             <div className="max-w-2xl">
@@ -412,7 +412,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* ABOUT SECTION */}
-      <section id="about" className="relative min-h-screen z-10 flex items-center py-20 md:py-40 px-6 md:px-24">
+      <section id="about" className="relative min-h-screen min-h-[100dvh] z-10 flex items-center py-20 md:py-40 px-6 md:px-24">
         <div className="max-w-6xl mx-auto w-full">
           <div className="bg-[#080808]/80 backdrop-blur-3xl border border-white/5 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 shadow-[0_32px_64px_rgba(0,0,0,0.6)] relative overflow-hidden">
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20 relative z-10">
