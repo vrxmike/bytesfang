@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { useMediaQuery } from '@/lib/useMediaQuery';
 
 interface OptimizedSceneProps {
   activeSection: string;
@@ -11,6 +12,8 @@ export default function OptimizedScene({ activeSection }: OptimizedSceneProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef(activeSection);
   const mousePos = useRef({ x: 0, y: 0 });
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   // Update ref when prop changes so the animation loop can access the latest value
   useEffect(() => {
@@ -112,7 +115,7 @@ export default function OptimizedScene({ activeSection }: OptimizedSceneProps) {
 
     // 3. Stars / Particles
     const starsGeo = new THREE.BufferGeometry();
-    const starCount = 1500;
+    const starCount = isMobile ? 750 : 1500; // Reduce density by 50% on mobile
     const posArray = new Float32Array(starCount * 3);
     for(let i = 0; i < starCount * 3; i++) {
         posArray[i] = (Math.random() - 0.5) * 40;
@@ -222,10 +225,6 @@ export default function OptimizedScene({ activeSection }: OptimizedSceneProps) {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
 
-      if (mountRef.current?.contains(renderer.domElement)) {
-        mountRef.current.removeChild(renderer.domElement);
-      }
-
       // Dispose Geometries
       geometry.dispose();
       wireGeo.dispose();
@@ -238,10 +237,16 @@ export default function OptimizedScene({ activeSection }: OptimizedSceneProps) {
       orbiterMat.dispose();
       starsMat.dispose();
 
+      // IMPORTANT: Remove canvas from DOM
+      if (mountRef.current && renderer.domElement) {
+        if(mountRef.current.contains(renderer.domElement)) {
+           mountRef.current.removeChild(renderer.domElement);
+        }
+      }
       renderer.dispose();
     };
 
-  }, []);
+  }, [isMobile]); // Re-run if screen size crosses mobile threshold
 
   return <div ref={mountRef} className="fixed inset-0 z-0 pointer-events-none touch-action-none" />;
 }
