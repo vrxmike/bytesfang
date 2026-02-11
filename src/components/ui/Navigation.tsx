@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Command, Github, Linkedin, Menu, X } from 'lucide-react';
+import { Command, Github, Linkedin, Menu, Moon, Sun, X } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -9,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface NavigationProps {
   activeSection: string;
@@ -19,6 +19,28 @@ interface NavigationProps {
 
 export default function Navigation({ activeSection, setActiveSection, setCommandOpen }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  // Initialize dark mode from localStorage / system preference
+  useEffect(() => {
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      setIsDark(true);
+    }
+  }, []);
+
+  const toggleDarkMode = () => {
+    const next = !isDark;
+    setIsDark(next);
+    if (next) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   const navItems = [
     { id: 'hero', label: 'Home' },
@@ -78,13 +100,23 @@ export default function Navigation({ activeSection, setActiveSection, setCommand
 
         <div className="h-8 w-[1px] bg-slate-200 dark:bg-white/10 hidden sm:block"></div>
 
+        <button
+          onClick={toggleDarkMode}
+          className="glass-button p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+          aria-label="Toggle dark mode"
+        >
+          {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+        </button>
+
+        <div className="h-8 w-[1px] bg-slate-200 dark:bg-white/10 hidden sm:block"></div>
+
         <div className="flex gap-2">
-            <button className="glass-button p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
-                <Github className="w-5 h-5" />
-            </button>
-            <button className="glass-button p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
-                <Linkedin className="w-5 h-5" />
-            </button>
+          <button className="glass-button p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
+            <Github className="w-5 h-5" />
+          </button>
+          <button className="glass-button p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
+            <Linkedin className="w-5 h-5" />
+          </button>
         </div>
       </div>
 
@@ -99,7 +131,7 @@ export default function Navigation({ activeSection, setActiveSection, setCommand
           <SheetContent side="right" className="w-[300px] sm:w-[350px] pt-12 glass-panel border-l border-white/10">
             <SheetHeader className="mb-8">
               <SheetTitle className="text-left flex items-center gap-3">
-                 <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center text-white font-bold font-mono text-sm">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center text-white font-bold font-mono text-sm">
                   N
                 </div>
                 <span className="font-bold text-lg text-slate-900 dark:text-white">Nexus.Dev</span>
@@ -122,9 +154,9 @@ export default function Navigation({ activeSection, setActiveSection, setCommand
                 </button>
               ))}
 
-               <div className="h-[1px] w-full bg-slate-200 dark:bg-white/10 my-4"></div>
+              <div className="h-[1px] w-full bg-slate-200 dark:bg-white/10 my-4"></div>
 
-               <button
+              <button
                 onClick={() => {
                   setCommandOpen(true);
                   setIsOpen(false);
@@ -135,13 +167,21 @@ export default function Navigation({ activeSection, setActiveSection, setCommand
                 Command Palette
               </button>
 
-               <div className="flex gap-2 mt-4 px-4">
-                  <button className="glass-button p-3 rounded-xl flex-1 flex items-center justify-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
-                      <Github className="w-5 h-5" />
-                  </button>
-                  <button className="glass-button p-3 rounded-xl flex-1 flex items-center justify-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
-                      <Linkedin className="w-5 h-5" />
-                  </button>
+              <button
+                onClick={() => { toggleDarkMode(); }}
+                className="w-full text-left px-4 py-3 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-3"
+              >
+                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                {isDark ? 'Light Mode' : 'Night Mode'}
+              </button>
+
+              <div className="flex gap-2 mt-4 px-4">
+                <button className="glass-button p-3 rounded-xl flex-1 flex items-center justify-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
+                  <Github className="w-5 h-5" />
+                </button>
+                <button className="glass-button p-3 rounded-xl flex-1 flex items-center justify-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-500 transition-colors">
+                  <Linkedin className="w-5 h-5" />
+                </button>
               </div>
             </div>
           </SheetContent>
