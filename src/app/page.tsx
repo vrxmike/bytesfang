@@ -10,6 +10,7 @@ import Projects from '@/components/sections/Projects';
 import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
 import ProjectModal, { Project } from '@/components/ui/ProjectModal';
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import { ShieldCheck, Cpu, Globe } from 'lucide-react';
 
 export default function Home() {
@@ -142,13 +143,15 @@ export default function Home() {
         onClose={() => setSelectedProject(null)}
       />
 
+      <ScrollToTop />
+
       {/* Footer / Status */}
       <footer className="fixed bottom-6 left-6 right-6 flex justify-between items-end pointer-events-none z-30 text-[10px] text-slate-400 font-mono mix-blend-difference">
          <div className="flex gap-4">
             <div>FRAMEWORK: NEXT.JS 15</div>
             <div>RENDER: THREE.JS / WEBGL</div>
          </div>
-         <div>© 2026 NEXUS INDUSTRIES</div>
+         <div className="hidden sm:block">© 2026 NEXUS INDUSTRIES</div>
       </footer>
 
     </main>
